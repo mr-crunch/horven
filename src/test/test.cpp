@@ -16,10 +16,10 @@ getInput ()
 }
 
 int
-initLineCount ()
+initLineCount (string fileName)
 {
   ifstream inventoryFile;
-  inventoryFile.open ("inventory.txt");
+  inventoryFile.open (fileName);
   if (!inventoryFile)
     {
       cerr << "Error: File could not be opened" << endl;
@@ -88,7 +88,7 @@ int
 main ()
 {
   string fileName = getInput ();
-  initMerchTable (initLineCount (), fileName);
+  initMerchTable (initLineCount (fileName), fileName);
 
   return 0;
 }
