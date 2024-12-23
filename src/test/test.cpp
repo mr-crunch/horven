@@ -37,12 +37,8 @@ initMerchTable (int lineCount, string fileName)
 {
   int merchCategories = 4;
   string tempMerchValue;
-  // string **lineCountPtr = initFileMalloc (lineCount);
-  /*vector<string> merchTable[merchCategories][lineCount];*/
   vector<vector<string> > merchTable (lineCount,
                                       vector<string> (merchCategories));
-  /*vector<vector<string> > merchTable (merchCategories, vector<string>
-   * (lineCount, 0));*/
   ifstream inventoryFile;
   inventoryFile.open (fileName);
   if (!inventoryFile)
@@ -69,20 +65,6 @@ initMerchTable (int lineCount, string fileName)
       cout << endl;
     }
 }
-
-/*
-string **
-initFileMalloc (int lineCount)
-{
-  string ** lineCountPtr = new (nothrow) string * [lineCount];
-  if (lineCountPtr == nullptr)
-    {
-      cerr << "Error: Memory could not be allocated" << endl;
-      exit(1);
-    }
-  return lineCountPtr;
-}
-*/
 
 int
 main ()
