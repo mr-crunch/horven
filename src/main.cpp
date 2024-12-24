@@ -35,10 +35,10 @@ getInput ()
 }
 
 int
-initLineCount ()
+initLineCount (string fileName)
 {
   ifstream inventoryFile;
-  inventoryFile.open ("inventory.txt");
+  inventoryFile.open (fileName);
   if (!inventoryFile)
     {
       cerr << "Error: File could not be opened" << endl;
@@ -52,7 +52,27 @@ initLineCount ()
 }
 
 void
-initMerchTable (int lineCount)
+outputMerchTable (vector<vector<string> > &merchTable)
+{
+  for (int i = 0; i < merchTable.size (); i++)
+    {
+      for (int j = 0; j < merchTable[i].size (); j++)
+        {
+          cout << merchTable[i][j] << " ";
+        }
+      cout << endl;
+    }
+}
+
+void
+editMerchTable (vector<vector<string> > &merchTable)
+{
+
+  outputMerchTable (merchTable);
+}
+
+void
+initMerchTable (int lineCount, string fileName)
 {
   int merchCategories = 4;
   string tempMerchValue;
@@ -60,7 +80,7 @@ initMerchTable (int lineCount)
                                       vector<string> (merchCategories));
   ifstream inventoryFile;
 
-  inventoryFile.open ("inventory.txt");
+  inventoryFile.open (fileName);
   if (!inventoryFile)
     {
       cerr << "Error: File could not be opened" << endl;
@@ -75,21 +95,15 @@ initMerchTable (int lineCount)
         }
     }
   inventoryFile.close ();
-  for (int i = 0; i < merchTable.size (); i++)
-    {
-      for (int j = 0; j < merchCategories; j++)
-        {
-          cout << merchTable[i][j] << " ";
-        }
-      cout << endl;
-    }
+
+  editMerchTable (merchTable);
 }
 
 int
 main ()
 {
   string fileName = getInput ();
-  initMerchTable (initLineCount ());
+  initMerchTable (initLineCount (fileName), fileName);
   /*vector<string> merchList;*/
   /*string tempMerchValue;*/
   /*ifstream inventoryFile;*/
