@@ -33,6 +33,26 @@ initLineCount (string fileName)
 }
 
 void
+outputMerchTable (vector<vector<string> > &merchTable)
+{
+  for (int i = 0; i < merchTable.size (); i++)
+    {
+      for (int j = 0; j < merchTable[i].size (); j++)
+        {
+          cout << merchTable[i][j] << " ";
+        }
+      cout << endl;
+    }
+}
+
+void
+editMerchTable (vector<vector<string> > &merchTable)
+{
+
+  outputMerchTable (merchTable);
+}
+
+void
 initMerchTable (int lineCount, string fileName)
 {
   int merchCategories = 4;
@@ -56,14 +76,7 @@ initMerchTable (int lineCount, string fileName)
     }
   inventoryFile.close ();
 
-  for (int i = 0; i < merchTable.size (); i++)
-    {
-      for (int j = 0; j < merchTable[i].size (); j++)
-        {
-          cout << merchTable[i][j] << " ";
-        }
-      cout << endl;
-    }
+  editMerchTable (merchTable);
 }
 
 int
