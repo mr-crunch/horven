@@ -75,14 +75,25 @@ initMerchTable (int lineCount, string fileName)
         }
     }
   inventoryFile.close ();
+  cout << "merch table initialized" << endl;
 
   editMerchTable (merchTable);
 }
 
 void
-printMenu ()
+initNewFile ()
 {
-  cout << "please select from options available: " << endl;
+  string fileName;
+  cout << "enter new file name with extension: ";
+  cin >> fileName;
+  fstream inventoryFile;
+  inventoryFile.open (fileName);
+}
+
+void
+printMainMenu ()
+{
+  cout << "please select from available options: " << endl;
   cout << "\t 1. initialize table from existing file" << endl;
   cout << "\t 2. initialize new file" << endl;
   cout << "\t 3. exit" << endl;
@@ -94,7 +105,7 @@ main ()
   int option = -1;
   while (option != 3)
     {
-      printMenu ();
+      printMainMenu ();
       cin >> option;
       if (option == 1 && option > 0 && option <= 3)
         {
@@ -108,6 +119,7 @@ main ()
               }
             case 2:
               {
+                initNewFile ();
                 // initialize new file
                 break;
               }
