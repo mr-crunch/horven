@@ -79,11 +79,43 @@ initMerchTable (int lineCount, string fileName)
   editMerchTable (merchTable);
 }
 
+void
+printMenu ()
+{
+  cout << "please select from options available: " << endl;
+  cout << "\t 1. initialize table from existing file" << endl;
+  cout << "\t 2. initialize new file" << endl;
+  cout << "\t 3. exit" << endl;
+}
+
 int
 main ()
 {
-  string fileName = getInput ();
-  initMerchTable (initLineCount (fileName), fileName);
+  int option = -1;
+  while (option != 3)
+    {
+      printMenu ();
+      cin >> option;
+      if (option == 1 && option > 0 && option <= 3)
+        {
+          switch (option)
+            {
+            case 1:
+              {
+                string fileName = getInput ();
+                initMerchTable (initLineCount (fileName), fileName);
+                break;
+              }
+            case 2:
+              {
+                // initialize new file
+                break;
+              }
+            case 3:
+              break;
+            }
+        }
+    }
 
   return 0;
 }
