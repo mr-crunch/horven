@@ -88,6 +88,8 @@ initNewFile ()
   cin >> fileName;
   fstream inventoryFile;
   inventoryFile.open (fileName);
+  inventoryFile << "\n";
+  inventoryFile.close ();
 }
 
 void
@@ -107,7 +109,7 @@ main ()
     {
       printMainMenu ();
       cin >> option;
-      if (option == 1 && option > 0 && option <= 3)
+      if (option > 0 && option <= 3)
         {
           switch (option)
             {
@@ -120,7 +122,6 @@ main ()
             case 2:
               {
                 initNewFile ();
-                // initialize new file
                 break;
               }
             case 3:
