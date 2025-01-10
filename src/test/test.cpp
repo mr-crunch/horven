@@ -12,6 +12,12 @@ getInput ()
   string fileName;
   cout << "enter file name with file extension: ";
   cin >> fileName;
+  ifstream testFile;
+  testFile.open (fileName);
+  while (!testFile)
+    {
+      cout << "Please enter a valid file name" << endl;
+    }
   return fileName;
 }
 
