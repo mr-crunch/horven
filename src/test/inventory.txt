@@ -1,12 +1,12 @@
-Shirt fwr1 S 20
-Shirt fwr1 M 20
-Shirt fwr1 L 20
-Shirt fwr1 XL 20
-Shirt fwr2 S 20
-Shirt fwr2 M 20
-Shirt fwr2 L 20
-Shirt fwr2 XL 20
-Hoodie fwr2 S 20
-Hoodie fwr2 M 20
-Hoodie fwr2 L 20
-Hoodie fwr2 XL 20
+ShirtS1 shirt fwr1 S 20
+ShirtM1 shirt fwr1 M 20
+ShirtL1 shirt fwr1 L 20
+ShirtXL1 shirt fwr1 XL 20
+ShirtS2 shirt fwr2 S 20
+ShirtM2 shirt fwr2 M 20
+ShirtL2 shirt fwr2 L 20
+ShirtXL2 shirt fwr2 XL 20
+HoodieS2 hoodie fwr2 S 20
+HoodieM2 hoodie fwr2 M 20
+HoodieL2 hoodie fwr2 L 20
+HoddieXL2 hoodie fwr2 XL 20

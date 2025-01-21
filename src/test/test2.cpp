@@ -18,10 +18,11 @@ using namespace std;
 
 struct merchItem
 {
+    string name;
     string merchType;
     string merchDesign;
     int amountAvailable;
-    char size;
+    string size;
 };
 
 int initLineCount(string fileName)
@@ -39,12 +40,9 @@ int initLineCount(string fileName)
   return lineCount;
 }
 
-void initMerchTableFromFile(vector<merchItem> &merchVector, map<int, merchItem> &merchTable, int lineCount,
+void initMerchTableFromFile(vector<merchItem> &merchVec, map<int, merchItem> &merchTable, int lineCount,
                             string fileName)
 {
-  int rows = 4;
-  string tempMerchValue;
-  vector<vector<string>> merchVec(lineCount, vector<string>(rows));
   ifstream inventoryFile;
   inventoryFile.open(fileName);
   if (!inventoryFile)
@@ -52,16 +50,23 @@ void initMerchTableFromFile(vector<merchItem> &merchVector, map<int, merchItem> 
     cerr << "Error: File could not be opened" << endl;
     exit(1);
   }
-  for (int i = 0; i < lineCount; i++)
+
+  for (int i = 0; i < merchVec.size(); i++)
   {
-    for (int j = 0; j < rows; j++)
-    {
-      inventoryFile >> tempMerchValue;
-      merchVec[i].insert(merchVec[i].begin() + j, tempMerchValue);
-    }
+    inventoryFile >> merchVec[i].name;
+    inventoryFile >> merchVec[i].merchType;
+    inventoryFile >> merchVec[i].merchDesign;
+    inventoryFile >> merchVec[i].size;
+    inventoryFile >> merchVec[i].amountAvailable;
   }
-  inventoryFile.close();
-  cout << "Merch table initialized" << endl;
+  for (int i = 0; i < merchVec.size(); i++)
+  {
+    cout << merchVec[i].name << endl;
+    cout << merchVec[i].merchType << endl;
+    cout << merchVec[i].merchDesign << endl;
+    cout << merchVec[i].size << endl;
+    cout << merchVec[i].amountAvailable << endl;
+  }
 }
 
 void initMerchTable(vector<merchItem> &itemVector, map<int, merchItem> &merchTable)
@@ -72,8 +77,10 @@ int main()
 {
   merchItem merch;
   map<int, merchItem> merchTable;
-  int lineCount;
-  string fileName;
+  int lineCount = 12;
+  string fileName = "inventory.txt";
+  vector<merchItem> merchVec(lineCount, merchItem());
+  initMerchTableFromFile(merchVec, merchTable, lineCount, fileName);
 
   return 0;
 }
