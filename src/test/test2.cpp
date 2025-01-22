@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@ int initLineCount(string fileName)
   return lineCount;
 }
 
-void initMerchTableFromFile(vector<merchItem> &merchVec, map<int, merchItem> &merchTable, int lineCount,
+void initMerchTableFromFile(vector<merchItem> &merchVec, unordered_map<int, merchItem> &merchTable, int lineCount,
                             string fileName)
 {
   ifstream inventoryFile;
@@ -65,7 +65,7 @@ void initMerchTableFromFile(vector<merchItem> &merchVec, map<int, merchItem> &me
   }
 }
 
-void initMerchTable(vector<merchItem> &merchVec, map<int, merchItem> &merchTable, int lineCount)
+void initMerchTable(vector<merchItem> &merchVec, unordered_map<int, merchItem> &merchTable, int lineCount)
 {
   for (int i = 0; i < lineCount; i++)
   {
@@ -89,7 +89,7 @@ void initMerchTable(vector<merchItem> &merchVec, map<int, merchItem> &merchTable
 int main()
 {
   merchItem merch;
-  map<int, merchItem> merchTable;
+  unordered_map<int, merchItem> merchTable;
   int lineCount = 12;
   string fileName = "inventory.txt";
   vector<merchItem> merchVec(lineCount, merchItem());
