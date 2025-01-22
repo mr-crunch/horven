@@ -65,8 +65,25 @@ void initMerchTableFromFile(vector<merchItem> &merchVec, map<int, merchItem> &me
   }
 }
 
-void initMerchTable(vector<merchItem> &itemVector, map<int, merchItem> &merchTable)
+void initMerchTable(vector<merchItem> &merchVec, map<int, merchItem> &merchTable, int lineCount)
 {
+  for (int i = 0; i < lineCount; i++)
+  {
+    cout << "Enter item name (TypeSizeDesignNumber): ";
+    cin >> merchVec[i].name;
+    cout << "\nEnter item type: ";
+    cin >> merchVec[i].merchType;
+    cout << "\nEnter item design";
+    cin >> merchVec[i].merchDesign;
+    cout << "\nEnter size: ";
+    cin >> merchVec[i].size;
+    cout << "\nEnter amount available: ";
+    cin >> merchVec[i].amountAvailable;
+  }
+  for (int i = 0; i < merchVec.size(); i++)
+  {
+    merchTable.emplace(merchVec[i].name, merchVec[i]);
+  }
 }
 
 int main()
