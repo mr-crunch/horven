@@ -63,10 +63,13 @@ void initMerchTableFromFile(vector<merchItem> &merchVec, unordered_map<int, merc
   {
     merchTable.emplace(merchVec[i].name, merchVec[i]);
   }
+  inventoryFile.close();
 }
 
 void initMerchTable(vector<merchItem> &merchVec, unordered_map<int, merchItem> &merchTable, int lineCount)
 {
+  cout << "Enter the number of items you want to add to the inventory: ";
+  cin >> lineCount;
   for (int i = 0; i < lineCount; i++)
   {
     cout << "Enter item name (TypeSizeDesignNumber): ";
@@ -79,9 +82,6 @@ void initMerchTable(vector<merchItem> &merchVec, unordered_map<int, merchItem> &
     cin >> merchVec[i].size;
     cout << "\nEnter amount available: ";
     cin >> merchVec[i].amountAvailable;
-  }
-  for (int i = 0; i < merchVec.size(); i++)
-  {
     merchTable.emplace(merchVec[i].name, merchVec[i]);
   }
 }
