@@ -66,6 +66,21 @@ void initMerchTableFromFile(vector<merchItem> &merchVec, unordered_map<int, merc
   inventoryFile.close();
 }
 
+void outPutMerchTable(vector<merchItem> &merchVec, string fileName)
+{
+  ofstream inventoryFile;
+  inventoryFile.open(fileName);
+  for (int i = 0; i < merchVec.size(); i++)
+  {
+    inventoryFile << merchVec[i].name << " ";
+    inventoryFile << merchVec[i].merchType << " ";
+    inventoryFile << merchVec[i].merchDesign << " ";
+    inventoryFile << merchVec[i].size << " ";
+    inventoryFile << merchVec[i].amountAvailable << endl;
+  }
+  inventoryFile.close();
+}
+
 void initMerchTable(vector<merchItem> &merchVec, unordered_map<int, merchItem> &merchTable, int lineCount)
 {
   cout << "Enter the number of items you want to add to the inventory: ";
