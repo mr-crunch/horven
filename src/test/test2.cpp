@@ -25,6 +25,53 @@ struct merchItem
     string size;
 };
 
+/*struct textFile*/
+/*{*/
+/*    string fileName;*/
+/*    int lineCount;*/
+/**/
+/*    int initLineCount(string fileName)*/
+/*    {*/
+/*      ifstream inventoryFile;*/
+/*      inventoryFile.open(fileName);*/
+/*      if (!inventoryFile)*/
+/*      {*/
+/*        cerr << "Error: File could not be opened" << endl;*/
+/*        exit(1);*/
+/*      }*/
+/*      inventoryFile.unsetf(ios_base::skipws);*/
+/*      unsigned lineCount = count(istream_iterator<char>(inventoryFile), istream_iterator<char>(), '\n');*/
+/*      inventoryFile.close();*/
+/*      return lineCount;*/
+/*    }*/
+/**/
+/*    void initMerchTableFromFile(vector<merchItem> &merchVec, unordered_map<int, merchItem> &merchTable, int
+ * lineCount,*/
+/*                                string fileName)*/
+/*    {*/
+/*      ifstream inventoryFile;*/
+/*      inventoryFile.open(fileName);*/
+/*      if (!inventoryFile)*/
+/*      {*/
+/*        cerr << "Error: File could not be opened" << endl;*/
+/*        exit(1);*/
+/*      }*/
+/*      for (int i = 0; i < merchVec.size(); i++)*/
+/*      {*/
+/*        inventoryFile >> merchVec[i].name;*/
+/*        inventoryFile >> merchVec[i].merchType;*/
+/*        inventoryFile >> merchVec[i].merchDesign;*/
+/*        inventoryFile >> merchVec[i].size;*/
+/*        inventoryFile >> merchVec[i].amountAvailable;*/
+/*      }*/
+/*      for (int i = 0; i < merchVec.size(); i++)*/
+/*      {*/
+/*        merchTable.emplace(merchVec[i].name, merchVec[i]);*/
+/*      }*/
+/*      inventoryFile.close();*/
+/*    }*/
+/*};*/
+
 int initLineCount(string fileName)
 {
   ifstream inventoryFile;
@@ -66,7 +113,7 @@ void initMerchTableFromFile(vector<merchItem> &merchVec, unordered_map<int, merc
   inventoryFile.close();
 }
 
-void outPutMerchTable(vector<merchItem> &merchVec, string fileName)
+void outputMerchTable(vector<merchItem> &merchVec, string fileName)
 {
   ofstream inventoryFile;
   inventoryFile.open(fileName);
@@ -85,6 +132,8 @@ void initMerchTable(vector<merchItem> &merchVec, unordered_map<int, merchItem> &
 {
   cout << "Enter the number of items you want to add to the inventory: ";
   cin >> lineCount;
+  // cin >> textFile.lineCount;
+  // for(int i = 0; i < textFile.lineCount; i++)
   for (int i = 0; i < lineCount; i++)
   {
     cout << "Enter item name (TypeSizeDesignNumber): ";
@@ -104,11 +153,14 @@ void initMerchTable(vector<merchItem> &merchVec, unordered_map<int, merchItem> &
 int main()
 {
   merchItem merch;
+  // textFile inventoryFile;
   unordered_map<int, merchItem> merchTable;
+  // inventoryFile.lineCount = 12;
+  // inventoryFile.fileName = "inventory.txt";
+  // vector<merchItem> merchVec(inventoryFile.lineCount, merchItem());
   int lineCount = 12;
   string fileName = "inventory.txt";
   vector<merchItem> merchVec(lineCount, merchItem());
-  initMerchTableFromFile(merchVec, merchTable, lineCount, fileName);
 
   return 0;
 }
