@@ -143,6 +143,37 @@ void initMerchTable(vector<merchItem> &merchVec,
   }
 }
 
+void mainSwitch(vector<merchItem> &merchVec,
+                unordered_map<int, merchItem> &merchTable, int lineCount,
+                string fileName) {
+  int choice = 0;
+  while (choice != 3) {
+    cout << "please select from the available options: " << endl;
+    cout << "\t1. initialize table from existing file" << endl;
+    cout << "\t2. initialize new table and file" << endl;
+    cout << "\t3. exit" << endl;
+    cin >> choice;
+    if (choice > 0 && choice <= 3) {
+      switch (choice) {
+      case 1: {
+        lineCount = initLineCount(fileName);
+        initMerchTableFromFile(merchVec, merchTable, lineCount, fileName);
+        // init merch table from file
+        break;
+      }
+      case 2: {
+        // init merch table and new file
+        initMerchTable(merchVec, merchTable, lineCount);
+        break;
+      }
+      case 3:
+        // exit
+        break;
+      }
+    }
+  }
+}
+
 int main() {
   merchItem merch;
   // textFile inventoryFile;
@@ -153,6 +184,7 @@ int main() {
   int lineCount = 12;
   string fileName = "inventory.txt";
   vector<merchItem> merchVec(lineCount, merchItem());
+  mainSwitch(merchVec, merchTable, lineCount, fileName);
 
   return 0;
 }
