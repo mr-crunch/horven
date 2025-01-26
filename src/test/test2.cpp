@@ -87,7 +87,7 @@ int initLineCount(string fileName) {
 }
 
 void initMerchTableFromFile(vector<merchItem> &merchVec,
-                            unordered_map<int, merchItem> &merchTable,
+                            unordered_map<string, merchItem> &merchTable,
                             int lineCount, string fileName) {
   ifstream inventoryFile;
   inventoryFile.open(fileName);
@@ -123,7 +123,8 @@ void outputMerchTable(vector<merchItem> &merchVec, string fileName) {
 }
 
 void initMerchTable(vector<merchItem> &merchVec,
-                    unordered_map<int, merchItem> &merchTable, int lineCount) {
+                    unordered_map<string, merchItem> &merchTable,
+                    int lineCount) {
   cout << "Enter the number of items you want to add to the inventory: ";
   cin >> lineCount;
   // cin >> textFile.lineCount;
@@ -144,7 +145,7 @@ void initMerchTable(vector<merchItem> &merchVec,
 }
 
 void mainSwitch(vector<merchItem> &merchVec,
-                unordered_map<int, merchItem> &merchTable, int lineCount,
+                unordered_map<string, merchItem> &merchTable, int lineCount,
                 string fileName) {
   int choice = 0;
   while (choice != 3) {
@@ -175,9 +176,8 @@ void mainSwitch(vector<merchItem> &merchVec,
 }
 
 int main() {
-  merchItem merch;
   // textFile inventoryFile;
-  unordered_map<int, merchItem> merchTable;
+  unordered_map<string, merchItem> merchTable;
   // inventoryFile.lineCount = 12;
   // inventoryFile.fileName = "inventory.txt";
   // vector<merchItem> merchVec(inventoryFile.lineCount, merchItem());
