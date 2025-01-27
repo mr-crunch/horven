@@ -134,7 +134,7 @@ void initMerchTable(vector<merchItem> &merchVec,
     cin >> merchVec[i].name;
     cout << "\nEnter item type: ";
     cin >> merchVec[i].merchType;
-    cout << "\nEnter item design";
+    cout << "\nEnter item design: ";
     cin >> merchVec[i].merchDesign;
     cout << "\nEnter size: ";
     cin >> merchVec[i].size;
