@@ -11,6 +11,7 @@
 // 1. Turn input into data for struct merchItem                          //
 // 2. Put merchItems into table                                          //
 // 3. Output table to a text file                                        //
+// 4. Change inventory values of specific items in table                 //
 //                                                                       //
 ///////////////////////////////////////////////////////////////////////////
 
@@ -144,6 +145,41 @@ void initMerchTable(vector<merchItem> &merchVec,
   }
 }
 
+void inventorySwitch(vector<merchItem> &merchVec,
+                     unordered_map<string, merchItem> &merchTable,
+                     int lineCount, string fileName) {
+  int choice = 0;
+  while (choice != 4) {
+    cout << "please select from the available options: " << endl;
+    cout << "\t1. view current inventory (full list)" << endl;
+    cout << "\t2. view current inventory by item id" << endl;
+    cout << "\t3. edit inventory by item id" << endl;
+    cout << "\t4. exit to main menu" << endl;
+    cin >> choice;
+    if (choice > 0 && choice <= 4) {
+      switch (choice) {
+      case 1: {
+        // view current inventory in full
+        break;
+      }
+      case 2: {
+        // view current inventory by item id
+        break;
+      }
+      case 3: {
+        // edit inventory by item id
+        break;
+      }
+      case 4:
+        break;
+      }
+    } else {
+      cout << "invalid input." << endl;
+      return;
+    }
+  }
+}
+
 void mainSwitch(vector<merchItem> &merchVec,
                 unordered_map<string, merchItem> &merchTable, int lineCount,
                 string fileName) {
@@ -157,9 +193,13 @@ void mainSwitch(vector<merchItem> &merchVec,
     if (choice > 0 && choice <= 3) {
       switch (choice) {
       case 1: {
+        cout << "enter file name with file extension: ";
+        cin >> fileName;
         lineCount = initLineCount(fileName);
         initMerchTableFromFile(merchVec, merchTable, lineCount, fileName);
+        inventorySwitch(merchVec, merchTable, lineCount, fileName);
         // init merch table from file
+        // new switch for editing inventory values
         break;
       }
       case 2: {
@@ -171,6 +211,9 @@ void mainSwitch(vector<merchItem> &merchVec,
         // exit
         break;
       }
+    } else {
+      cout << "invalid input." << endl;
+      return;
     }
   }
 }
