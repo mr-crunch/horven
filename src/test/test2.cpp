@@ -204,7 +204,10 @@ void mainSwitch(vector<merchItem> &merchVec,
       }
       case 2: {
         // init merch table and new file
+        cout << "enter file name with file extension: ";
+        cin >> fileName;
         initMerchTable(merchVec, merchTable, lineCount);
+        inventorySwitch(merchVec, merchTable, lineCount, fileName);
         break;
       }
       case 3:
