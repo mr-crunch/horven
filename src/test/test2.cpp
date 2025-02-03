@@ -159,6 +159,7 @@ void viewFullInventory(unordered_map<string, merchItem> &merchTable) {
 
 void viewCurrentInventory(unordered_map<string, merchItem> &merchTable) {
   // output current inventory of selected items
+  // find keys and then output key and amount available
   string item;
   int itemCount;
   cout << "enter the number of items to view: ";
@@ -172,6 +173,9 @@ void viewCurrentInventory(unordered_map<string, merchItem> &merchTable) {
       cout << "item not found" << endl;
       return;
     } else {
+      cout << foundItem->first
+           << " amount available: " << foundItem->second.amountAvailable
+           << endl;
     }
   }
 }
@@ -199,6 +203,7 @@ void inventorySwitch(vector<merchItem> &merchVec,
       }
       case 2: {
         // view current inventory by item id
+        viewCurrentInventory(merchTable);
         break;
       }
       case 3: {
