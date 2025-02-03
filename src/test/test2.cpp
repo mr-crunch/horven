@@ -153,8 +153,15 @@ void findKeys(unordered_map<string, merchItem> &merchTable, int itemCount,
   }
 }
 
-void viewFullInventory(unordered_map<string, merchItem> &merchTable) {
+void viewFullInventory(vector<merchItem> &merchVec, string fileName) {
   // output full inventory table
+  for (int i = 0; i < merchVec.size(); i++) {
+    cout << merchVec[i].name << " ";
+    cout << merchVec[i].merchType << " ";
+    cout << merchVec[i].merchDesign << " ";
+    cout << merchVec[i].size << " ";
+    cout << merchVec[i].amountAvailable << endl;
+  }
 }
 
 void viewCurrentInventory(unordered_map<string, merchItem> &merchTable) {
@@ -182,6 +189,27 @@ void viewCurrentInventory(unordered_map<string, merchItem> &merchTable) {
 
 void editCurrentInventory(unordered_map<string, merchItem> &merchTable) {
   // edit current inventory of slected items
+  string item;
+  int itemCount, newAmountAvailable;
+  cout << "enter the number of items to edit: ";
+  cin >> itemCount;
+  for (int i = 0; i < itemCount; i++) {
+    cout << "enter item id: ";
+    cin >> item;
+    cout << "\nenter new inventory amount: ";
+    cin >> newAmountAvailable;
+    unordered_map<string, merchItem>::iterator foundItem =
+        merchTable.find(item);
+    if (foundItem == merchTable.end()) {
+      cout << "item not found" << endl;
+      return;
+    } else {
+      foundItem->second.amountAvailable = newAmountAvailable;
+      cout << foundItem->first
+           << " amount available: " << foundItem->second.amountAvailable
+           << endl;
+    }
+  }
 }
 
 void inventorySwitch(vector<merchItem> &merchVec,
@@ -199,6 +227,7 @@ void inventorySwitch(vector<merchItem> &merchVec,
       switch (choice) {
       case 1: {
         // view current inventory in full
+        viewFullInventory(merchVec, fileName);
         break;
       }
       case 2: {
@@ -208,13 +237,15 @@ void inventorySwitch(vector<merchItem> &merchVec,
       }
       case 3: {
         // edit inventory by item id
+        editCurrentInventory(merchTable);
         break;
       }
       case 4:
         break;
       }
     } else {
-      cout << "invalid input." << endl;
+      cerr << "invalid input." << endl;
+      exit(1);
       return;
     }
   }

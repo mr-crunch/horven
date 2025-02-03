@@ -9,4 +9,4 @@ ShirtXL2 shirt fwr2 XL 20
 HoodieS2 hoodie fwr2 S 20
 HoodieM2 hoodie fwr2 M 20
 HoodieL2 hoodie fwr2 L 20
-HoddieXL2 hoodie fwr2 XL 20
+HoodieXL2 hoodie fwr2 XL 20
