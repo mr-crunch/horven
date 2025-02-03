@@ -145,6 +145,41 @@ void initMerchTable(vector<merchItem> &merchVec,
   }
 }
 
+void findKeys(unordered_map<string, merchItem> &merchTable, int itemCount,
+              string item) {
+  for (int i = 0; i < itemCount; i++) {
+    cout << "enter item id: ";
+    cin >> item;
+  }
+}
+
+void viewFullInventory(unordered_map<string, merchItem> &merchTable) {
+  // output full inventory table
+}
+
+void viewCurrentInventory(unordered_map<string, merchItem> &merchTable) {
+  // output current inventory of selected items
+  string item;
+  int itemCount;
+  cout << "enter the number of items to view: ";
+  cin >> itemCount;
+  for (int i = 0; i < itemCount; i++) {
+    cout << "enter item id: ";
+    cin >> item;
+    unordered_map<string, merchItem>::const_iterator foundItem =
+        merchTable.find(item);
+    if (foundItem == merchTable.end()) {
+      cout << "item not found" << endl;
+      return;
+    } else {
+    }
+  }
+}
+
+void editCurrentInventory(unordered_map<string, merchItem> &merchTable) {
+  // edit current inventory of slected items
+}
+
 void inventorySwitch(vector<merchItem> &merchVec,
                      unordered_map<string, merchItem> &merchTable,
                      int lineCount, string fileName) {
