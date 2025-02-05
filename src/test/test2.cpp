@@ -156,14 +156,9 @@ void findKeys(unordered_map<string, merchItem> &merchTable, int itemCount,
 void viewFullInventory(unordered_map<string, merchItem> &merchTable,
                        vector<merchItem> &merchVec, string fileName) {
   // output full inventory table
-  for (int i = 0; i < merchVec.size(); i++) {
-    cout << merchVec[i].name << " ";
-    cout << merchVec[i].merchType << " ";
-    cout << merchVec[i].merchDesign << " ";
-    cout << merchVec[i].size << " ";
-    cout << merchVec[i].amountAvailable << endl;
-  }
-  for (int i = 0; i < merchTable.size(); i++) {
+  for (auto &merch : merchVec) {
+    cout << merch.name << " " << merch.merchType << " " << merch.merchDesign
+         << " " << merch.size << " " << merch.amountAvailable << endl;
   }
 }
 
@@ -190,6 +185,17 @@ void viewCurrentInventory(unordered_map<string, merchItem> &merchTable) {
   }
 }
 
+void updateMerchVec(vector<merchItem> &merchVec, int newAmountAvailable,
+                    string item) {
+  auto it = find_if(merchVec.begin(), merchVec.end(),
+                    [&item](const merchItem &obj) { return obj.name == item; });
+  if (it != merchVec.end()) {
+    it->amountAvailable = newAmountAvailable;
+  } else {
+    return;
+  }
+}
+
 void editCurrentInventory(unordered_map<string, merchItem> &merchTable,
                           vector<merchItem> &merchVec) {
   // edit current inventory of slected items
@@ -203,6 +209,7 @@ void editCurrentInventory(unordered_map<string, merchItem> &merchTable,
     cin >> item;
     cout << "\nenter new inventory amount: ";
     cin >> newAmountAvailable;
+    updateMerchVec(merchVec, newAmountAvailable, item);
     merchTableIter foundItem = merchTable.find(item);
     if (foundItem == merchTable.end()) {
       cout << "item not found" << endl;
