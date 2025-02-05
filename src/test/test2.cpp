@@ -153,7 +153,8 @@ void findKeys(unordered_map<string, merchItem> &merchTable, int itemCount,
   }
 }
 
-void viewFullInventory(vector<merchItem> &merchVec, string fileName) {
+void viewFullInventory(unordered_map<string, merchItem> &merchTable,
+                       vector<merchItem> &merchVec, string fileName) {
   // output full inventory table
   for (int i = 0; i < merchVec.size(); i++) {
     cout << merchVec[i].name << " ";
@@ -162,11 +163,14 @@ void viewFullInventory(vector<merchItem> &merchVec, string fileName) {
     cout << merchVec[i].size << " ";
     cout << merchVec[i].amountAvailable << endl;
   }
+  for (int i = 0; i < merchTable.size(); i++) {
+  }
 }
 
 void viewCurrentInventory(unordered_map<string, merchItem> &merchTable) {
   // output current inventory of selected items
   // find keys and then output key and amount available
+  using merchTableIter = unordered_map<string, merchItem>::const_iterator;
   string item;
   int itemCount;
   cout << "enter the number of items to view: ";
@@ -174,21 +178,22 @@ void viewCurrentInventory(unordered_map<string, merchItem> &merchTable) {
   for (int i = 0; i < itemCount; i++) {
     cout << "enter item id: ";
     cin >> item;
-    unordered_map<string, merchItem>::const_iterator foundItem =
-        merchTable.find(item);
+    merchTableIter foundItem = merchTable.find(item);
     if (foundItem == merchTable.end()) {
       cout << "item not found" << endl;
       return;
     } else {
-      cout << foundItem->first
-           << " amount available: " << foundItem->second.amountAvailable
-           << endl;
+      auto &key = foundItem->first;
+      auto &item = foundItem->second.amountAvailable;
+      cout << key << " amount available: " << item << endl;
     }
   }
 }
 
-void editCurrentInventory(unordered_map<string, merchItem> &merchTable) {
+void editCurrentInventory(unordered_map<string, merchItem> &merchTable,
+                          vector<merchItem> &merchVec) {
   // edit current inventory of slected items
+  using merchTableIter = unordered_map<string, merchItem>::iterator;
   string item;
   int itemCount, newAmountAvailable;
   cout << "enter the number of items to edit: ";
@@ -198,16 +203,15 @@ void editCurrentInventory(unordered_map<string, merchItem> &merchTable) {
     cin >> item;
     cout << "\nenter new inventory amount: ";
     cin >> newAmountAvailable;
-    unordered_map<string, merchItem>::iterator foundItem =
-        merchTable.find(item);
+    merchTableIter foundItem = merchTable.find(item);
     if (foundItem == merchTable.end()) {
       cout << "item not found" << endl;
       return;
     } else {
-      foundItem->second.amountAvailable = newAmountAvailable;
-      cout << foundItem->first
-           << " amount available: " << foundItem->second.amountAvailable
-           << endl;
+      auto &key = foundItem->first;
+      auto &item = foundItem->second;
+      item.amountAvailable = newAmountAvailable;
+      cout << key << " amount available: " << item.amountAvailable << endl;
     }
   }
 }
@@ -227,7 +231,7 @@ void inventorySwitch(vector<merchItem> &merchVec,
       switch (choice) {
       case 1: {
         // view current inventory in full
-        viewFullInventory(merchVec, fileName);
+        viewFullInventory(merchTable, merchVec, fileName);
         break;
       }
       case 2: {
@@ -237,7 +241,7 @@ void inventorySwitch(vector<merchItem> &merchVec,
       }
       case 3: {
         // edit inventory by item id
-        editCurrentInventory(merchTable);
+        editCurrentInventory(merchTable, merchVec);
         break;
       }
       case 4:
