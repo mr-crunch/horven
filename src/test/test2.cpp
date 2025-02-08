@@ -40,9 +40,11 @@ int initLineCount(string fileName) {
   return lineCount;
 }
 
-void initMerchTableFromFile(vector<merchItem> &merchVec,
-                            unordered_map<string, merchItem> &merchTable,
-                            int lineCount, string fileName) {
+void initMerchTableFromFile(unordered_map<string, merchItem> &merchTable,
+                            vector<merchItem> &merchVec, int lineCount,
+                            string fileName) {
+  merchVec.reserve(initLineCount(fileName));
+  cout << merchVec.size();
   ifstream inventoryFile;
   inventoryFile.open(fileName);
   if (!inventoryFile) {
@@ -64,7 +66,7 @@ void initMerchTableFromFile(vector<merchItem> &merchVec,
 }
 
 void outputMerchTable(vector<merchItem> &merchVec, string fileName) {
-  ofstream inventoryFile;
+  fstream inventoryFile;
   inventoryFile.open(fileName);
   for (int i = 0; i < merchVec.size(); i++) {
     inventoryFile << merchVec[i].name << " ";
@@ -77,8 +79,8 @@ void outputMerchTable(vector<merchItem> &merchVec, string fileName) {
 }
 
 void initMerchTable(vector<merchItem> &merchVec,
-                    unordered_map<string, merchItem> &merchTable,
-                    int lineCount) {
+                    unordered_map<string, merchItem> &merchTable, int lineCount,
+                    string fileName) {
   cout << "Enter the number of items you want to add to the inventory: ";
   cin >> lineCount;
   for (int i = 0; i < lineCount; i++) {
@@ -94,6 +96,7 @@ void initMerchTable(vector<merchItem> &merchVec,
     cin >> merchVec[i].amountAvailable;
     merchTable.emplace(merchVec[i].name, merchVec[i]);
   }
+  outputMerchTable(merchVec, fileName);
 }
 
 void viewFullInventory(unordered_map<string, merchItem> &merchTable,
@@ -198,9 +201,11 @@ void inventorySwitch(vector<merchItem> &merchVec,
   }
 }
 
-void mainSwitch(vector<merchItem> &merchVec,
-                unordered_map<string, merchItem> &merchTable, int lineCount,
-                string fileName) {
+void mainSwitch() {
+  vector<merchItem> merchVec;
+  unordered_map<string, merchItem> merchTable;
+  string fileName;
+  int lineCount;
   int choice = 0;
   while (choice != 3) {
     cout << "please select from the available options: " << endl;
@@ -214,14 +219,17 @@ void mainSwitch(vector<merchItem> &merchVec,
         cout << "enter file name with file extension: ";
         cin >> fileName;
         lineCount = initLineCount(fileName);
-        initMerchTableFromFile(merchVec, merchTable, lineCount, fileName);
+        merchVec.reserve(lineCount);
+        cout << "lc" << lineCount << endl;
+        cout << "mv" << merchVec.size() << endl;
+        initMerchTableFromFile(merchTable, merchVec, lineCount, fileName);
         inventorySwitch(merchVec, merchTable, lineCount, fileName);
         break;
       }
       case 2: {
         cout << "enter file name with file extension: ";
         cin >> fileName;
-        initMerchTable(merchVec, merchTable, lineCount);
+        initMerchTable(merchVec, merchTable, lineCount, fileName);
         inventorySwitch(merchVec, merchTable, lineCount, fileName);
         break;
       }
@@ -236,11 +244,7 @@ void mainSwitch(vector<merchItem> &merchVec,
 }
 
 int main() {
-  unordered_map<string, merchItem> merchTable;
-  int lineCount = 12;
-  string fileName = "inventory.txt";
-  vector<merchItem> merchVec(lineCount, merchItem());
-  mainSwitch(merchVec, merchTable, lineCount, fileName);
+  mainSwitch();
 
   return 0;
 }
