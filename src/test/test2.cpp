@@ -43,8 +43,6 @@ int initLineCount(string fileName) {
 void initMerchTableFromFile(unordered_map<string, merchItem> &merchTable,
                             vector<merchItem> &merchVec, int lineCount,
                             string fileName) {
-  merchVec.reserve(initLineCount(fileName));
-  cout << merchVec.size();
   ifstream inventoryFile;
   inventoryFile.open(fileName);
   if (!inventoryFile) {
@@ -83,6 +81,7 @@ void initMerchTable(vector<merchItem> &merchVec,
                     string fileName) {
   cout << "Enter the number of items you want to add to the inventory: ";
   cin >> lineCount;
+  merchVec.resize(lineCount);
   for (int i = 0; i < lineCount; i++) {
     cout << "Enter item name (TypeSizeDesignNumber): ";
     cin >> merchVec[i].name;
