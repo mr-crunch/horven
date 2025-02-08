@@ -219,9 +219,7 @@ void mainSwitch() {
         cout << "enter file name with file extension: ";
         cin >> fileName;
         lineCount = initLineCount(fileName);
-        merchVec.reserve(lineCount);
-        cout << "lc" << lineCount << endl;
-        cout << "mv" << merchVec.size() << endl;
+        merchVec.resize(lineCount);
         initMerchTableFromFile(merchTable, merchVec, lineCount, fileName);
         inventorySwitch(merchVec, merchTable, lineCount, fileName);
         break;
