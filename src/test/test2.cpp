@@ -12,6 +12,7 @@
 // 2. Put merchItems into table                                          //
 // 3. Output table to a text file                                        //
 // 4. Change inventory values of specific items in table                 //
+// 5. Implementation of proper file handling                             //
 //                                                                       //
 ///////////////////////////////////////////////////////////////////////////
 
@@ -24,54 +25,6 @@ struct merchItem {
     int amountAvailable;
     string size;
 };
-
-/*struct textFile*/
-/*{*/
-/*    string fileName;*/
-/*    int lineCount;*/
-/**/
-/*    int initLineCount(string fileName)*/
-/*    {*/
-/*      ifstream inventoryFile;*/
-/*      inventoryFile.open(fileName);*/
-/*      if (!inventoryFile)*/
-/*      {*/
-/*        cerr << "Error: File could not be opened" << endl;*/
-/*        exit(1);*/
-/*      }*/
-/*      inventoryFile.unsetf(ios_base::skipws);*/
-/*      unsigned lineCount = count(istream_iterator<char>(inventoryFile),
- * istream_iterator<char>(), '\n');*/
-/*      inventoryFile.close();*/
-/*      return lineCount;*/
-/*    }*/
-/**/
-/*    void initMerchTableFromFile(vector<merchItem> &merchVec,
- * unordered_map<int, merchItem> &merchTable, int lineCount,*/
-/*                                string fileName)*/
-/*    {*/
-/*      ifstream inventoryFile;*/
-/*      inventoryFile.open(fileName);*/
-/*      if (!inventoryFile)*/
-/*      {*/
-/*        cerr << "Error: File could not be opened" << endl;*/
-/*        exit(1);*/
-/*      }*/
-/*      for (int i = 0; i < merchVec.size(); i++)*/
-/*      {*/
-/*        inventoryFile >> merchVec[i].name;*/
-/*        inventoryFile >> merchVec[i].merchType;*/
-/*        inventoryFile >> merchVec[i].merchDesign;*/
-/*        inventoryFile >> merchVec[i].size;*/
-/*        inventoryFile >> merchVec[i].amountAvailable;*/
-/*      }*/
-/*      for (int i = 0; i < merchVec.size(); i++)*/
-/*      {*/
-/*        merchTable.emplace(merchVec[i].name, merchVec[i]);*/
-/*      }*/
-/*      inventoryFile.close();*/
-/*    }*/
-/*};*/
 
 int initLineCount(string fileName) {
   ifstream inventoryFile;
@@ -128,8 +81,6 @@ void initMerchTable(vector<merchItem> &merchVec,
                     int lineCount) {
   cout << "Enter the number of items you want to add to the inventory: ";
   cin >> lineCount;
-  // cin >> textFile.lineCount;
-  // for(int i = 0; i < textFile.lineCount; i++)
   for (int i = 0; i < lineCount; i++) {
     cout << "Enter item name (TypeSizeDesignNumber): ";
     cin >> merchVec[i].name;
@@ -145,17 +96,8 @@ void initMerchTable(vector<merchItem> &merchVec,
   }
 }
 
-void findKeys(unordered_map<string, merchItem> &merchTable, int itemCount,
-              string item) {
-  for (int i = 0; i < itemCount; i++) {
-    cout << "enter item id: ";
-    cin >> item;
-  }
-}
-
 void viewFullInventory(unordered_map<string, merchItem> &merchTable,
                        vector<merchItem> &merchVec, string fileName) {
-  // output full inventory table
   for (auto &merch : merchVec) {
     cout << merch.name << " " << merch.merchType << " " << merch.merchDesign
          << " " << merch.size << " " << merch.amountAvailable << endl;
@@ -163,8 +105,6 @@ void viewFullInventory(unordered_map<string, merchItem> &merchTable,
 }
 
 void viewCurrentInventory(unordered_map<string, merchItem> &merchTable) {
-  // output current inventory of selected items
-  // find keys and then output key and amount available
   using merchTableIter = unordered_map<string, merchItem>::const_iterator;
   string item;
   int itemCount;
@@ -198,7 +138,6 @@ void updateMerchVec(vector<merchItem> &merchVec, int newAmountAvailable,
 
 void editCurrentInventory(unordered_map<string, merchItem> &merchTable,
                           vector<merchItem> &merchVec) {
-  // edit current inventory of slected items
   using merchTableIter = unordered_map<string, merchItem>::iterator;
   string item;
   int itemCount, newAmountAvailable;
@@ -237,17 +176,14 @@ void inventorySwitch(vector<merchItem> &merchVec,
     if (choice > 0 && choice <= 4) {
       switch (choice) {
       case 1: {
-        // view current inventory in full
         viewFullInventory(merchTable, merchVec, fileName);
         break;
       }
       case 2: {
-        // view current inventory by item id
         viewCurrentInventory(merchTable);
         break;
       }
       case 3: {
-        // edit inventory by item id
         editCurrentInventory(merchTable, merchVec);
         break;
       }
@@ -280,12 +216,9 @@ void mainSwitch(vector<merchItem> &merchVec,
         lineCount = initLineCount(fileName);
         initMerchTableFromFile(merchVec, merchTable, lineCount, fileName);
         inventorySwitch(merchVec, merchTable, lineCount, fileName);
-        // init merch table from file
-        // new switch for editing inventory values
         break;
       }
       case 2: {
-        // init merch table and new file
         cout << "enter file name with file extension: ";
         cin >> fileName;
         initMerchTable(merchVec, merchTable, lineCount);
@@ -293,7 +226,6 @@ void mainSwitch(vector<merchItem> &merchVec,
         break;
       }
       case 3:
-        // exit
         break;
       }
     } else {
@@ -304,11 +236,7 @@ void mainSwitch(vector<merchItem> &merchVec,
 }
 
 int main() {
-  // textFile inventoryFile;
   unordered_map<string, merchItem> merchTable;
-  // inventoryFile.lineCount = 12;
-  // inventoryFile.fileName = "inventory.txt";
-  // vector<merchItem> merchVec(inventoryFile.lineCount, merchItem());
   int lineCount = 12;
   string fileName = "inventory.txt";
   vector<merchItem> merchVec(lineCount, merchItem());
